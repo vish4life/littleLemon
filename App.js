@@ -100,6 +100,7 @@ export default function App() {
   useUpdateEffect(() => {
     // console.log('filter : ',filterSelections);
     // console.log('query : ',query);
+    
     (async () => {
       const activeCategories = sections.filter((s, i) => {
         // If all filters are deselected, all categories are active

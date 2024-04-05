@@ -68,7 +68,8 @@ export async function filterByQueryAndCategories(query, activeCategories) {
         // console.log('in db file for activecategories: ',activeCategories)
         if (query.length > 0) {
             db.transaction((tx) => {
-                tx.executeSql('select * from menuitems where category like (?) or title like (?);', [`%${query}%`, `%${query}%`], (_, { rows }) => {
+                // tx.executeSql('select * from menuitems where category like (?) or title like (?);', [`%${query}%`, `%${query}%`], (_, { rows }) => {
+                    tx.executeSql('select * from menuitems where title like (?);', [`%${query}%`], (_, { rows }) => {
                     // console.log(rows._array);
                     if (rows._array.length > 0) {
                         // console.log('Data available');
@@ -77,25 +78,11 @@ export async function filterByQueryAndCategories(query, activeCategories) {
                     else {
                         const noData = [
                             {
-                                "category": "Appetizers",
+                                "category": "",
                                 "id": 1,
-                                "price": "",
+                                "price": "0",
                                 "title": `No Menu for ${query}`,
                                 "uuid": "1"
-                            },
-                            {
-                                "category": "Salads",
-                                "id": 2,
-                                "price": "",
-                                "title": `No Menu for ${query}`,
-                                "uuid": "2"
-                            },
-                            {
-                                "category": "Beverages",
-                                "id": 3,
-                                "price": "",
-                                "title": `No Menu for ${query}`,
-                                "uuid": "3"
                             },
                         ]
                         // console.log(noData);
